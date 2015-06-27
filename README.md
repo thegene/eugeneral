@@ -1,6 +1,6 @@
 # Eugeneral
 
-TODO: Write a gem description
+Simple rules engine.
 
 ## Installation
 
@@ -18,7 +18,7 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+You use it.
 
 ## Contributing
 
