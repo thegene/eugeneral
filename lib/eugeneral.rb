@@ -1,5 +1,5 @@
-require "eugeneral/version"
+require 'eugeneral/version'
+require 'eugeneral/command'
 
 module Eugeneral
-  # Your code goes here...
 end
