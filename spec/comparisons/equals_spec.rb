@@ -1,4 +1,4 @@
-require_relative '../../lib/eugeneral/comparisons/comparisons'
+Eugeneral.require_sub_module('comparisons')
 
 describe Eugeneral::Comparisons::Equals do
   let(:expected) { double(:expected) }
