@@ -6,8 +6,8 @@ module Eugeneral
       @command = command
     end
 
-    def resolve
-      command.resolve
+    def resolve(*args)
+      command.resolve(*args)
     end
   end
 end
