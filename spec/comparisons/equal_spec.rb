@@ -1,6 +1,6 @@
 Eugeneral.require_sub_module('comparisons')
 
-describe Eugeneral::Comparisons::Equals do
+describe Eugeneral::Comparisons::Equal do
   let(:expected) { double(:expected) }
   let(:actual) { double(:actual) }
   let(:subject) { described_class.new(expected, actual) }

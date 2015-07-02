@@ -1,6 +1,6 @@
 module Eugeneral
   module Comparisons
-    class Equals
+    class Equal
       attr_accessor :expected, :actual
 
       def initialize(expected, actual)
