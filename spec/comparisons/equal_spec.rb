@@ -1,16 +1,16 @@
 Eugeneral.require_sub_module('comparisons')
 
 describe Eugeneral::Comparisons::Equal do
-  let(:expected) { double(:expected) }
-  let(:actual) { double(:actual) }
-  let(:subject) { described_class.new(expected, actual) }
+  let(:subject) { double(:subject) }
+  let(:object) { double(:object) }
+  let(:subject) { described_class.new(subject, object) }
 
   before do
-    allow(expected).to receive(:resolve).and_return(expected_value)
-    allow(actual).to receive(:resolve).and_return(actual_value)
+    allow(subject).to receive(:resolve).and_return(expected_value)
+    allow(object).to receive(:resolve).and_return(actual_value)
   end
 
-  context 'When expected and actual values are equal' do
+  context 'When subject and object values are equal' do
     let(:actual_value) { :foo }
     let(:expected_value) { :foo }
 
@@ -19,7 +19,7 @@ describe Eugeneral::Comparisons::Equal do
     end
   end
 
-  context 'When expected and actual values are not equal' do
+  context 'When subject and object values are not equal' do
     let(:actual_value) { :foo }
     let(:expected_value) { :bar }
 

@@ -1,14 +1,14 @@
 module Eugeneral
   module Comparisons
     class Equal
-      attr_accessor :expected, :actual
+      attr_accessor :subject, :object
 
-      def initialize(expected, actual)
-        @expected, @actual = expected, actual
+      def initialize(subject, object)
+        @subject, @object = subject, object
       end
 
       def resolve(*args)
-        expected.resolve(*args) == actual.resolve(*args)
+        subject.resolve(*args) == object.resolve(*args)
       end
     end
   end
