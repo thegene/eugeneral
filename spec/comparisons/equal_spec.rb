@@ -3,7 +3,7 @@ Eugeneral.require_sub_module('comparisons')
 describe Eugeneral::Comparisons::Equal do
   let(:subject) { double(:subject) }
   let(:object) { double(:object) }
-  let(:subject) { described_class.new(subject, object) }
+  let(:comparator) { described_class.new(subject, object) }
 
   before do
     allow(subject).to receive(:resolve).and_return(expected_value)
@@ -15,7 +15,7 @@ describe Eugeneral::Comparisons::Equal do
     let(:expected_value) { :foo }
 
     it 'resolves to true' do
-      expect(subject.resolve('anything')).to eq(true)
+      expect(comparator.resolve('anything')).to eq(true)
     end
   end
 
@@ -24,7 +24,7 @@ describe Eugeneral::Comparisons::Equal do
     let(:expected_value) { :bar }
 
     it 'resolves to true' do
-      expect(subject.resolve('anything')).to eq(false)
+      expect(comparator.resolve('anything')).to eq(false)
     end
   end
 end

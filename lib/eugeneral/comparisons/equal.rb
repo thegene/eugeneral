@@ -1,7 +1,7 @@
 module Eugeneral
   module Comparisons
     class Equal
-      attr_accessor :subject, :object
+      attr_reader :subject, :object
 
       def initialize(subject, object)
         @subject, @object = subject, object
