@@ -2,10 +2,10 @@ require_relative '../lib/eugeneral'
 
 describe Eugeneral::Command do
   context 'Given a Command' do
-    let(:command) { described_class.new(sub_command) }
     let(:args) {{ a: 'b' }}
 
-    context 'with a sub command' do
+    context 'when instantiated with a sub command' do
+      let(:command) { described_class.new(sub_command) }
       let(:sub_command) { double(:sub_command) }
 
       before do
@@ -16,17 +16,36 @@ describe Eugeneral::Command do
         expect(sub_command).to receive(:resolve).once.with(args)
         command.resolve(args)
       end
+
+      context 'which returns something' do
+        before do
+          expect(sub_command).to receive(:resolve)
+            .with(args).and_return('something')
+        end
+
+        it 'returns something' do
+          expect(command.resolve(args)).to eq('something')
+        end
+
+      end
     end
 
-    context 'with a sub command which returns something' do
-      let(:sub_command) { double(:sub_command) }
-      before do
-        expect(sub_command).to receive(:resolve).with(args).and_return('something')
+    context 'when instantiated with a non-command' do
+      let(:command) { described_class.new(thing) }
+      let(:thing) { 'a thing' }
+
+      context 'when resolved with args' do
+        it 'resolves to thing' do
+          expect(command.resolve(args)).to be(thing)
+        end
       end
 
-      it 'Returns something' do
-        expect(command.resolve(args)).to eq('something')
+      context 'when resolved without args' do
+        it 'resolves to the thing' do
+          expect(command.resolve).to be(thing)
+        end
       end
     end
+
   end
 end
