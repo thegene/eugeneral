@@ -1,4 +1,4 @@
-Eugeneral.require_sub_module('comparisons')
+require_relative '../../lib/eugeneral/comparisons/comparisons'
 
 describe Eugeneral::Comparisons::Not do
   context 'Given a Not comparison' do

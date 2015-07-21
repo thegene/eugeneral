@@ -1,1 +1,8 @@
-Eugeneral.require_sub_module('comparisons')
+[
+  'equal',
+  'greater_than_or_equal_to',
+  'greater_than',
+  'less_than_or_equal_to',
+  'less_than',
+  'not'
+].each { |f| require_relative(f) }
