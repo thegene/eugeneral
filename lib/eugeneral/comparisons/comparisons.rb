@@ -1,6 +1,7 @@
 [
   'comparitor',
   'equal',
+  'not_equal',
   'greater_than_or_equal_to',
   'greater_than',
   'less_than_or_equal_to',

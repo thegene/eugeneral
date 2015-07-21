@@ -1,7 +1,7 @@
 require_relative '../../lib/eugeneral/comparisons/comparisons'
 
-describe Eugeneral::Comparisons::Equal do
-  context 'Given an Equal Comparitor' do
+describe Eugeneral::Comparisons::NotEqual do
+  context 'Given a NotEqual Comparitor' do
     let(:comparator) { described_class.new(subject, object) }
 
     context 'instantiated with commands' do
@@ -17,8 +17,8 @@ describe Eugeneral::Comparisons::Equal do
         let(:object_value) { :foo }
         let(:subject_value) { :foo }
 
-        it 'resolves to true' do
-          expect(comparator.resolve('anything')).to eq(true)
+        it 'resolves to false' do
+          expect(comparator.resolve('anything')).to eq(false)
         end
       end
 
@@ -26,8 +26,8 @@ describe Eugeneral::Comparisons::Equal do
         let(:object_value) { :foo }
         let(:subject_value) { :bar }
 
-        it 'resolves to false' do
-          expect(comparator.resolve('anything')).to eq(false)
+        it 'resolves to true' do
+          expect(comparator.resolve('anything')).to eq(true)
         end
       end
     end
@@ -38,8 +38,8 @@ describe Eugeneral::Comparisons::Equal do
         let(:object) { :foo }
         let(:subject) { :foo }
 
-        it 'resolves to true' do
-          expect(comparator.resolve('anything')).to eq(true)
+        it 'resolves to false' do
+          expect(comparator.resolve('anything')).to eq(false)
         end
       end
 
@@ -47,8 +47,8 @@ describe Eugeneral::Comparisons::Equal do
         let(:object) { :foo }
         let(:subject) { :bar }
 
-        it 'resolves to false' do
-          expect(comparator.resolve('anything')).to eq(false)
+        it 'resolves to true' do
+          expect(comparator.resolve('anything')).to eq(true)
         end
       end
     end
