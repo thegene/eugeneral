@@ -1,4 +1,4 @@
-require_relative '../../lib/eugeneral/comparisons/comparisons'
+require_relative '../../lib/eugeneral/logic/not'
 
 describe Eugeneral::Comparisons::Not do
   context 'Given a Not comparison' do

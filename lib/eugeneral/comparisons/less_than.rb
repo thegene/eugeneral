@@ -1,17 +1,11 @@
 module Eugeneral
   module Comparisons
-    class LessThan
-      include Eugeneral::Value
-
-      attr_reader :subject, :object
-
-      def initialize(subject, object)
-        @subject, @object = subject, object
-      end
+    class LessThan < Comparitor
 
       def resolve(args=[])
         value_for(subject, args) < value_for(object, args)
       end
+      
     end
   end
 end
