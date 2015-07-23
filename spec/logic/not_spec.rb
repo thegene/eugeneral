@@ -1,6 +1,6 @@
 require_relative '../../lib/eugeneral/logic/not'
 
-describe Eugeneral::Comparisons::Not do
+describe Eugeneral::Logic::Not do
   context 'Given a Not comparison' do
     context 'when instantiated with commands' do
       let(:subject) { described_class.new(command) }

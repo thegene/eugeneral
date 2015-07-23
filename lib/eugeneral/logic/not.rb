@@ -1,5 +1,5 @@
 module Eugeneral
-  module Comparisons
+  module Logic
     class Not
       include Eugeneral::Value
 
