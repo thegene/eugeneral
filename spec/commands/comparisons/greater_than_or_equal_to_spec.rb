@@ -1,7 +1,7 @@
-require_relative '../../lib/eugeneral/comparisons/comparisons'
+require_relative '../../../lib/eugeneral/commands/comparisons/comparisons'
 
-describe Eugeneral::Comparisons::LessThanOrEqualTo do
-  context 'Given a comparison of LessThanOrEqualTo' do
+describe Eugeneral::Comparisons::GreaterThanOrEqualTo do
+  context 'Given a comparison of GreaterThanOrEqualTo' do
     let(:comparator) { described_class.new(subject, object) }
 
     context 'when instantiated with commands' do
@@ -20,8 +20,8 @@ describe Eugeneral::Comparisons::LessThanOrEqualTo do
           let(:subject_value) { 2 }
           let(:object_value) { 1 }
 
-          it 'resolves to false' do
-            expect(comparator.resolve(args)).to eq(false)
+          it 'resolves to true' do
+            expect(comparator.resolve(args)).to eq(true)
           end
         end
 
@@ -29,8 +29,8 @@ describe Eugeneral::Comparisons::LessThanOrEqualTo do
           let(:subject_value) { 1 }
           let(:object_value) { 2 }
 
-          it 'resolves to true' do
-            expect(comparator.resolve(args)).to eq(true)
+          it 'resolves to false' do
+            expect(comparator.resolve(args)).to eq(false)
           end
         end
 
@@ -55,8 +55,8 @@ describe Eugeneral::Comparisons::LessThanOrEqualTo do
           let(:subject_value) { 2 }
           let(:object_value) { 1 }
 
-          it 'resolves to false' do
-            expect(comparator.resolve).to eq(false)
+          it 'resolves to true' do
+            expect(comparator.resolve).to eq(true)
           end
         end
 
@@ -64,8 +64,8 @@ describe Eugeneral::Comparisons::LessThanOrEqualTo do
           let(:subject_value) { 1 }
           let(:object_value) { 2 }
 
-          it 'resolves to true' do
-            expect(comparator.resolve).to eq(true)
+          it 'resolves to false' do
+            expect(comparator.resolve).to eq(false)
           end
         end
 
@@ -88,8 +88,8 @@ describe Eugeneral::Comparisons::LessThanOrEqualTo do
           let(:subject) { 2 }
           let(:object) { 1 }
 
-          it 'resolves to false' do
-            expect(comparator.resolve(args)).to eq(false)
+          it 'resolves to true' do
+            expect(comparator.resolve(args)).to eq(true)
           end
         end
 
@@ -97,8 +97,8 @@ describe Eugeneral::Comparisons::LessThanOrEqualTo do
           let(:subject) { 1 }
           let(:object) { 2 }
 
-          it 'resolves to true' do
-            expect(comparator.resolve(args)).to eq(true)
+          it 'resolves to false' do
+            expect(comparator.resolve(args)).to eq(false)
           end
         end
 
@@ -118,8 +118,8 @@ describe Eugeneral::Comparisons::LessThanOrEqualTo do
           let(:subject) { 2 }
           let(:object) { 1 }
 
-          it 'resolves to false' do
-            expect(comparator.resolve).to eq(false)
+          it 'resolves to true' do
+            expect(comparator.resolve).to eq(true)
           end
         end
 
@@ -127,8 +127,8 @@ describe Eugeneral::Comparisons::LessThanOrEqualTo do
           let(:subject) { 1 }
           let(:object) { 2 }
 
-          it 'resolves to true' do
-            expect(comparator.resolve).to eq(true)
+          it 'resolves to false' do
+            expect(comparator.resolve).to eq(false)
           end
         end
 

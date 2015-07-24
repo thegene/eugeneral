@@ -1,4 +1,4 @@
-require_relative '../lib/eugeneral/value'
+require_relative '../../lib/eugeneral/commands/value'
 
 describe Eugeneral::Value do
   context 'given a class including value' do

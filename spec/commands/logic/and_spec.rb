@@ -1,4 +1,4 @@
-require_relative '../../lib/eugeneral/logic/logic'
+require_relative '../../../lib/eugeneral/commands/logic/logic'
 
 describe Eugeneral::Logic::And do
   context 'Given an And expression' do

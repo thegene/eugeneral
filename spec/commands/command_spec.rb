@@ -1,4 +1,4 @@
-require_relative '../lib/eugeneral'
+require_relative '../../lib/eugeneral'
 
 describe Eugeneral::Command do
   context 'Given a Command' do
