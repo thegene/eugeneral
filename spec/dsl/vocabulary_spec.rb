@@ -4,7 +4,7 @@ describe Eugeneral::DSL::Vocabulary do
   context 'Given a DSL::Vocabulary' do
     let(:foo_class) { double(:foo_class) }
     let(:foo_instance) { double(:foo_instance) }
-    let(:vocabulary) { described_class.new(mapping) }
+    subject(:vocabulary) { described_class.new(mapping) }
 
     before do
       stub_const('FooClass', foo_class)
@@ -33,7 +33,10 @@ describe Eugeneral::DSL::Vocabulary do
       context 'when defining a command' do
 
         context 'which is present in the mapping' do
-          let(:command) { :foo }
+
+          it 'defines :foo' do
+            expect(subject.defines?(:foo)).to be(true)
+          end
 
           context 'without sub commands' do
             before do
@@ -58,6 +61,10 @@ describe Eugeneral::DSL::Vocabulary do
         end
 
         context 'which is not present in the mapping' do
+
+          it 'does not define :bar' do
+            expect(subject.defines?(:bar)).to be(false)
+          end
 
           context 'without sub commands' do
 

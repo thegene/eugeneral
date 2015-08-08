@@ -8,10 +8,18 @@ module Eugeneral
       end
 
       def define(command, *args)
-        command_instance(command, args) if has_command?(command)
+        command_instance(command, args) if defines?(command)
+      end
+
+      def defines?(command)
+        mapping.has_key?(symbolize(command))
       end
 
       private
+
+      def symbolize(string)
+        string.to_sym if string.respond_to?(:to_sym)
+      end
 
       def normalize_mapping(mapping)
         Hash[mapping.map{ |k, v| [k.to_sym, v] }]
@@ -26,12 +34,9 @@ module Eugeneral
       end
 
       def find_command(command)
-        mapping[command.to_sym]
+        mapping[symbolize(command)]
       end
 
-      def has_command?(command)
-        mapping.has_key?(command.to_sym)
-      end
     end
   end
 end
