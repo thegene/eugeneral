@@ -58,19 +58,24 @@ describe Eugeneral::DSL::Parsers::YAML do
 
       end
 
-      context 'when parsing a more complex comand list' do
+      context 'when parsing a more complex command list' do
         let(:yaml) {
           <<-YAML.unindent
             complex_command:
-              - sooper_foo:
+              sooper_foo:
                 - [1, 2, 3]
                 - bar:
                   - 'takes'
                   - 'three'
                   - 'strings'
                 - some_number: 17
+                - other_foo:
+                    purple: true
+                    seven: 8
+                    eight:
+                      bar: 'thing'
             simpler_command:
-              - fruit:
+              fruit:
                 - apple
                 - pear
                 - plum
@@ -88,6 +93,8 @@ describe Eugeneral::DSL::Parsers::YAML do
         context 'when it uses the vocabulary interface' do
           let(:sooper_foo) { double(:sooper_foo) }
           let(:sooper_foo_class) { double(:sooper_foo_class) }
+          let(:other_foo) { double(:other_foo) }
+          let(:other_foo_class) { double(:other_foo_class) }
           let(:bar) { double(:bar) }
           let(:bar_class) { double(:bar_class) }
           let(:some_number) { double(:some_number) }
@@ -99,11 +106,13 @@ describe Eugeneral::DSL::Parsers::YAML do
             sooper_foo: SooperFoo,
             bar: Bar,
             some_number: SomeNumber,
-            fruit: Fruit
+            fruit: Fruit,
+            other_foo: OtherFoo
           }}
 
           before do
             allow(sooper_foo_class).to receive(:new).and_return(sooper_foo)
+            allow(other_foo_class).to receive(:new).and_return(other_foo)
             allow(bar_class).to receive(:new).and_return(bar)
             allow(some_number_class).to receive(:new).and_return(some_number)
             allow(fruit_class).to receive(:new).and_return(fruit)
@@ -111,6 +120,8 @@ describe Eugeneral::DSL::Parsers::YAML do
             stub_const('Bar', bar_class)
             stub_const('SomeNumber', some_number_class)
             stub_const('Fruit', fruit_class)
+            stub_const('SooperFoo', sooper_foo_class)
+            stub_const('OtherFoo', other_foo_class)
           end
 
           it 'instantiates bar with three strings' do
@@ -119,7 +130,13 @@ describe Eugeneral::DSL::Parsers::YAML do
           end
 
           it 'instantiates sooper foo with bar, some number and an array' do
-            expect(SooperFoo).to receive(:new).with([[1, 2, 3], bar, some_number])
+            expect(SooperFoo).to receive(:new).with(
+              [
+                [1, 2, 3],
+                bar,
+                some_number,
+                other_foo
+              ])
             parser.parse(yaml)
           end
 
@@ -130,6 +147,15 @@ describe Eugeneral::DSL::Parsers::YAML do
 
           it 'instantiates fruit with three fruit' do
             expect(Fruit).to receive(:new).with(['apple', 'pear', 'plum'])
+            parser.parse(yaml)
+          end
+
+          it 'instantiates OtherFoo with a hash of stuff' do
+            expect(OtherFoo).to receive(:new).with({
+              'purple' => true,
+              'seven' => 8,
+              'eight' => bar  
+            })
             parser.parse(yaml)
           end
 
