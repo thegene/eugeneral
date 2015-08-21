@@ -1,6 +1,6 @@
-require_relative '../../../lib/eugeneral/commands/arguments/arguments'
+require_relative '../../../lib/eugeneral/commands/required_arguments/arguments'
 
-describe Eugeneral::Arguments::PositionalArgument do
+describe Eugeneral::RequiredArguments::PositionalArgument do
   context 'Given a PositionalArgument' do
     subject(:argument) { described_class.new(position) }
     let(:position) { 1 }

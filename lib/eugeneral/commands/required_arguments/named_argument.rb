@@ -1,5 +1,5 @@
 module Eugeneral
-  module Arguments
+  module RequiredArguments
     class NamedArgument < Argument
 
       def resolve(args={})

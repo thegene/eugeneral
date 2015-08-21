@@ -3,5 +3,6 @@
   'command',
   'comparisons/comparisons',
   'logic/logic',
-  'rete/rete'
+  'rete/rete',
+  'required_arguments/arguments'
 ].each { |f| require_relative f }

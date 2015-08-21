@@ -1,5 +1,5 @@
 module Eugeneral
-  module Arguments
+  module RequiredArguments
     class Argument
       attr_reader :target
 

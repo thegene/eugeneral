@@ -1,5 +1,5 @@
 module Eugeneral
-  module Arguments
+  module RequiredArguments
     class PositionalArgument < Argument
       def resolve(args=[])
         args[target] || not_found

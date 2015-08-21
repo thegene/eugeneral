@@ -1,6 +1,6 @@
-require_relative '../../../lib/eugeneral/commands/arguments/arguments'
+require_relative '../../../lib/eugeneral/commands/required_arguments/arguments'
 
-describe Eugeneral::Arguments::NamedArgument do
+describe Eugeneral::RequiredArguments::NamedArgument do
   context 'Given a NamedArgument' do
     subject(:named_argument) { described_class.new(name) }
 
