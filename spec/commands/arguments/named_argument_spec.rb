@@ -20,7 +20,7 @@ describe Eugeneral::Arguments::NamedArgument do
           expect(subject.resolve('foo' => 'bar')).to eq('bar')
         end
       end
-      
+
       context 'when resolved with a hash not containing its name' do
 
         it 'throws an error' do
