@@ -1,0 +1,4 @@
+equal?:
+  equals:
+    - positional_argument: 1
+    - positional_argument: 2
