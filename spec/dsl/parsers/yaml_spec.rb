@@ -4,7 +4,11 @@ require 'heredoc_unindent'
 
 describe Eugeneral::DSL::Parsers::YAML do
   context 'Given a YAML Parser' do
-    subject(:parser) { described_class.new(vocabulary) }
+    def general
+      parser.parse(yaml)
+    end
+
+    subject(:parser) { described_class.new(vocabulary: vocabulary) }
 
     context 'with a vocabulary' do
       let(:vocabulary) { Eugeneral::DSL::Vocabulary.new(mapping) }
@@ -13,7 +17,7 @@ describe Eugeneral::DSL::Parsers::YAML do
         foo: FooClass
       }}
 
-      let(:foo_instance) { double(:foo_instance) }
+      let(:foo_instance) { double(:foo_instance, resolve: 'bar') }
       let(:foo_class) { double(:foo_class) }
 
       before do
@@ -29,28 +33,23 @@ describe Eugeneral::DSL::Parsers::YAML do
           YAML
         }
 
-        it 'returns an object with some_command' do
-          expect(parser.parse(yaml)).to respond_to(:some_command)
-        end
-
         context 'when it uses the vocabulary interface' do
 
           it 'instantiates foo with something' do
-            expect(vocabulary).to receive(:define).with('foo', 'something')
-            expect(vocabulary).to receive(:define).with('something')
-            parser.parse(yaml)
+            expect(vocabulary).to receive(:define).with('foo', 'something').once
+            expect(vocabulary).to receive(:define).with('something').once
+            general
           end
 
           context 'when calling the subsequent command' do
 
-            it 'will call foo with something when called with something' do
-              expect(foo_instance).to receive(:resolve).once.with('something')
-              parser.parse(yaml).some_command.call('something')
+            it 'will return bar' do
+              expect(general.some_command('something')).to eq('bar')
             end
 
             it 'will call foo when called without arguments' do
               expect(foo_instance).to receive(:resolve).once.with(no_args)
-              parser.parse(yaml).some_command.call()
+              general.some_command()
             end
           end
 
@@ -83,11 +82,11 @@ describe Eugeneral::DSL::Parsers::YAML do
         }
 
         it 'returns an object with complex_command' do
-          expect(parser.parse(yaml)).to respond_to(:complex_command)
+          expect(general).to respond_to(:complex_command)
         end
 
         it 'returns an object with simpler_command' do
-          expect(parser.parse(yaml)).to respond_to(:simpler_command)
+          expect(general).to respond_to(:simpler_command)
         end
 
         context 'when it uses the vocabulary interface' do
@@ -126,7 +125,7 @@ describe Eugeneral::DSL::Parsers::YAML do
 
           it 'instantiates bar with three strings' do
             expect(Bar).to receive(:new).with(['takes', 'three', 'strings'])
-            parser.parse(yaml)
+            general
           end
 
           it 'instantiates sooper foo with bar, some number and an array' do
@@ -137,17 +136,17 @@ describe Eugeneral::DSL::Parsers::YAML do
                 some_number,
                 other_foo
               ])
-            parser.parse(yaml)
+            general
           end
 
           it 'instantiates SomeNumber with 17' do
             expect(SomeNumber).to receive(:new).with(17)
-            parser.parse(yaml)
+            general
           end
 
           it 'instantiates fruit with three fruit' do
             expect(Fruit).to receive(:new).with(['apple', 'pear', 'plum'])
-            parser.parse(yaml)
+            general
           end
 
           it 'instantiates OtherFoo with a hash of stuff' do
@@ -156,7 +155,7 @@ describe Eugeneral::DSL::Parsers::YAML do
               'seven' => 8,
               'eight' => bar  
             })
-            parser.parse(yaml)
+            general
           end
 
         end

@@ -1,4 +1,5 @@
 require 'yaml'
+require_relative '../../general'
 
 module Eugeneral
   module DSL
@@ -8,12 +9,16 @@ module Eugeneral
 
         YAML_LOADER = ::YAML
 
-        def initialize(vocabulary)
-          @vocabulary = vocabulary
+        def initialize(args)
+          @vocabulary = args[:vocabulary]
         end
 
         def parse(yaml)
-          build_struct_from(command_hash(yaml))
+          general = General.new
+          YAML_LOADER.load(yaml).each do |command, args|
+            general.command(command, build_command(args))
+          end
+          general
         end
 
         private
@@ -32,7 +37,11 @@ module Eugeneral
               command.to_sym, 
               build_base_command(parse_recursive(args))
             ]
-          }.to_h
+          }
+        end
+
+        def parse_command(args)
+          build_base_command(parse_recursive(args))
         end
 
         def parse_recursive(args)
@@ -46,14 +55,11 @@ module Eugeneral
           end
         end
 
-        def build_base_command(commands)
+        def build_command(definition)
+          command = parse_recursive(definition)
           ->(args=[]) {
-            Array(commands).each { |command| command.resolve(*args) }
+            parse_recursive(command).resolve(*args)
           }
-        end
-
-        def build_struct_from(hash)
-          Struct.new(*hash.keys).new(*hash.values)
         end
 
         def handle_hash(hash)
