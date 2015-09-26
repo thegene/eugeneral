@@ -31,15 +31,6 @@ module Eugeneral
           vocabulary.defines?(thing)
         end
 
-        def command_hash(yaml)
-          YAML_LOADER.load(yaml).map { |command, args|
-            [
-              command.to_sym, 
-              build_base_command(parse_recursive(args))
-            ]
-          }
-        end
-
         def parse_command(args)
           build_base_command(parse_recursive(args))
         end
@@ -83,9 +74,6 @@ module Eugeneral
           end
         end
 
-        def handle(thing)
-          define(thing)
-        end
       end
     end
   end
