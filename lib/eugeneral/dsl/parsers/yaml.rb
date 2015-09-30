@@ -23,47 +23,47 @@ module Eugeneral
 
         private
 
-        def define(thing, *args)
-          vocabulary.define(thing, *args) || thing
+        def is_configured?(args)
+          vocabulary.defines?(args.keys.first)
         end
 
-        def is_defined?(thing)
-          vocabulary.defines?(thing)
-        end
-
-        def parse_command(args)
-          build_base_command(parse_recursive(args))
+        def build_command(definition)
+          command = parse_recursive(definition)
+          ->(*args) {
+            if args.any?
+              command.resolve(args)
+            else
+              command.resolve
+            end
+          }
         end
 
         def parse_recursive(args)
           case args
           when Hash
-            handle_hash(args)
+            if is_configured?(args)
+              handle_configured(args)
+            else
+              handle_hash(args)
+            end
           when Array
             handle_array(args)
           else
-            define(args)
+            vocabulary.define(args)
           end
         end
 
-        def build_command(definition)
-          command = parse_recursive(definition)
-          ->(args=[]) {
-            parse_recursive(command).resolve(*args)
-          }
+        def handle_configured(args)
+          key, value = args.first
+          value = [value] if value.class != Array
+          vocabulary.define(key, parse_recursive(value))
         end
 
         def handle_hash(hash)
-          key, value = hash.first
-
-          if is_defined?(key)
-            define(key, parse_recursive(value))
-          else
-            {}.tap do |defined|
-              hash.each { |key, value|
-                defined[key] = parse_recursive(value)
-              }
-            end
+          {}.tap do |h|
+            hash.each { |key, value|
+              h[key] = parse_recursive(value)
+            }
           end
 
         end

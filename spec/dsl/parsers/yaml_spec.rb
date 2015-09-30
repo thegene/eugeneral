@@ -36,8 +36,7 @@ describe Eugeneral::DSL::Parsers::YAML do
         context 'when it uses the vocabulary interface' do
 
           it 'instantiates foo with something' do
-            expect(vocabulary).to receive(:define).with('foo', 'something').once
-            expect(vocabulary).to receive(:define).with('something').once
+            expect(foo_class).to receive(:new).with('something').once
             general
           end
 
@@ -124,18 +123,17 @@ describe Eugeneral::DSL::Parsers::YAML do
           end
 
           it 'instantiates bar with three strings' do
-            expect(Bar).to receive(:new).with(['takes', 'three', 'strings'])
+            expect(Bar).to receive(:new).with('takes', 'three', 'strings')
             general
           end
 
           it 'instantiates sooper foo with bar, some number and an array' do
             expect(SooperFoo).to receive(:new).with(
-              [
-                [1, 2, 3],
-                bar,
-                some_number,
-                other_foo
-              ])
+              [1, 2, 3],
+              bar,
+              some_number,
+              other_foo
+            )
             general
           end
 
@@ -145,7 +143,7 @@ describe Eugeneral::DSL::Parsers::YAML do
           end
 
           it 'instantiates fruit with three fruit' do
-            expect(Fruit).to receive(:new).with(['apple', 'pear', 'plum'])
+            expect(Fruit).to receive(:new).with('apple', 'pear', 'plum')
             general
           end
 

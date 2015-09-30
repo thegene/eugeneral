@@ -14,16 +14,12 @@ describe Eugeneral::DSL::Vocabulary do
     context 'with an empty mapping' do
       let(:mapping) { {} }
 
-      context 'with no sub commands' do
-        it 'will not define anything' do
-          expect(vocabulary.define(:foo)).to be(nil)
-        end
+      it 'will not define anything' do
+        expect(vocabulary.defines?(:foo)).to be(false)
       end
 
-      context 'with sub commands' do
-        it 'will not define anything' do
-          expect(vocabulary.define(:foo)).to be(nil)
-        end
+      it 'will just return the thing which was to be defined' do
+        expect(vocabulary.define(:foo)).to be(:foo)
       end
     end
 
@@ -50,11 +46,11 @@ describe Eugeneral::DSL::Vocabulary do
 
           context 'with sub commands' do
             before do
-              expect(foo_class).to receive(:new).with('something', [1, 2])
+              expect(foo_class).to receive(:new).with('something', 1, 2)
             end
 
             it 'returns an instance of FooClass' do
-              expect(vocabulary.define(:foo, 'something', [1, 2]))
+              expect(vocabulary.define(:foo, ['something', 1, 2]))
                 .to be(foo_instance)
             end
           end
@@ -66,19 +62,11 @@ describe Eugeneral::DSL::Vocabulary do
             expect(subject.defines?(:bar)).to be(false)
           end
 
-          context 'without sub commands' do
 
-            it 'will not return anything' do
-              expect(vocabulary.define(:bar)).to be(nil)
-            end
+          it 'will return that which is defined' do
+            expect(vocabulary.define(:bar)).to be(:bar)
           end
 
-          context 'with sub commands' do
-
-            it 'will not return anything' do
-              expect(vocabulary.define(:bar)).to be(nil)
-            end
-          end
         end
 
       end

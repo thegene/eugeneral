@@ -7,8 +7,8 @@ module Eugeneral
         @mapping = normalize_mapping(mapping)
       end
 
-      def define(command, *args)
-        command_instance(command, args) if defines?(command)
+      def define(command, args=[])
+        defines?(command) ? command_instance(command, args) : command
       end
 
       def defines?(command)
@@ -26,7 +26,7 @@ module Eugeneral
       end
 
       def command_instance(command, args)
-        if args.any?
+        if Array(args).any?
           find_command(command).new(*args)
         else
           find_command(command).new
