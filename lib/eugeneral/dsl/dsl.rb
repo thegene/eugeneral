@@ -6,7 +6,11 @@ require_relative 'vocabulary'
 module Eugeneral
   module DSL
     DEFAULT_MAPPING = {
-      equals: ::Eugeneral::Comparisons::Equal
+      equal: ::Eugeneral::Comparisons::Equal,
+      not_equal: ::Eugeneral::Comparisons::NotEqual,
+      arg_number: ::Eugeneral::RequiredArguments::PositionalArgument,
+      arg_name: ::Eugeneral::RequiredArguments::NamedArgument,
+      greater_than: ::Eugeneral::Comparisons::GreaterThan
     }
 
     def self.default_vocabulary

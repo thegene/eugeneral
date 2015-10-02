@@ -1,4 +1,12 @@
 equal?:
-  equals:
-    - positional_argument: 1
-    - positional_argument: 2
+  equal:
+    - arg_number: 0
+    - arg_number: 1
+not_equal?:
+  not_equal:
+    - arg_number: 0
+    - arg_number: 1
+greater_than?:
+  greater_than:
+    - arg_name: :foo
+    - arg_name: :bar
