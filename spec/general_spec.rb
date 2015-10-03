@@ -15,20 +15,47 @@ describe Eugeneral::General do
         general.command(:foo, proc)
       end
 
-      it 'will call the proc with the given arguments as an array' do
-        expect(proc).to receive(:call).with( ['foo', 'bar'] )
-        general.foo('foo', 'bar')
+      context 'when called with no arguments' do
+        before do
+          expect(proc).to receive(:call).with(no_args)
+        end
+
+        it 'will call the proc with no arguments' do
+          general.foo
+        end
+
       end
 
-      it 'will call the proc with a hash' do
-        expect(proc).to receive(:call).with( {foo: 'bar'} )
-        general.foo(foo: 'bar')
+      context 'when called with positional arguments' do
+        before do
+          expect(proc).to receive(:call).with( ['foo', 'bar'] )
+        end
+
+        it 'will call the proc with the given arguments as an array' do
+          general.foo('foo', 'bar')
+        end
       end
 
-      it 'will call the proc with an array containing both' do
-        expect(proc).to receive(:call).with( ['foo', 'bar', { foo: 'bar' }] )
-        general.foo('foo', 'bar', foo: 'bar')
+      context 'when called with named arguments' do
+        before do
+          expect(proc).to receive(:call).with( {foo: 'bar'} )
+        end
+
+        it 'will call the proc with a hash' do
+          general.foo(foo: 'bar')
+        end
       end
+
+      context 'when called with both positional and named' do
+        before do
+          expect(proc).to receive(:call).with( ['foo', 'bar', { foo: 'bar' }] )
+        end
+
+        it 'will call the proc with an array containing both' do
+          general.foo('foo', 'bar', foo: 'bar')
+        end
+      end
+
     end
   end
 end

@@ -3,7 +3,9 @@ module Eugeneral
 
     def command(command, proc)
       define_singleton_method(command) do |*args, **kwargs|
-        if kwargs_only?(args, kwargs)
+        if no_args?(args, kwargs)
+          proc.call
+        elsif kwargs_only?(args, kwargs)
           proc.call(kwargs)
         else
           proc.call(args_from_both(args, kwargs))
@@ -12,6 +14,10 @@ module Eugeneral
     end
 
     private
+
+    def no_args?(args, kwargs)
+      args.empty? && kwargs.empty?
+    end
 
     def args_from_both(args, kwargs)
       [].tap { |parsed_args|
