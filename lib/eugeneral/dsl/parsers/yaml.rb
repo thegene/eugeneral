@@ -16,7 +16,7 @@ module Eugeneral
         def parse(yaml)
           general = General.new
           YAML_LOADER.load(yaml).each do |command, args|
-            general.command(command, build_command(args))
+            general.command(command, proc_for_command(args))
           end
           general
         end
@@ -27,11 +27,9 @@ module Eugeneral
           vocabulary.defines?(args.keys.first)
         end
 
-        def build_command(definition)
+        def proc_for_command(definition)
           command = parse_recursive(definition)
-          ->(*args) {
-            command.resolve(*args)
-          }
+          ->(*args) { command.resolve(*args) }
         end
 
         def parse_recursive(args)
