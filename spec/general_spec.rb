@@ -15,9 +15,19 @@ describe Eugeneral::General do
         general.command(:foo, proc)
       end
 
-      it 'will call the proc with the given arguments' do
-        expect(proc).to receive(:call).with('foo', 'bar')
+      it 'will call the proc with the given arguments as an array' do
+        expect(proc).to receive(:call).with( ['foo', 'bar'] )
         general.foo('foo', 'bar')
+      end
+
+      it 'will call the proc with a hash' do
+        expect(proc).to receive(:call).with( {foo: 'bar'} )
+        general.foo(foo: 'bar')
+      end
+
+      it 'will call the proc with an array containing both' do
+        expect(proc).to receive(:call).with( ['foo', 'bar', { foo: 'bar' }] )
+        general.foo('foo', 'bar', foo: 'bar')
       end
     end
   end

@@ -2,9 +2,26 @@ module Eugeneral
   class General
 
     def command(command, proc)
-      define_singleton_method(command) do |*args|
-        proc.call(*args)
+      define_singleton_method(command) do |*args, **kwargs|
+        if kwargs_only?(args, kwargs)
+          proc.call(kwargs)
+        else
+          proc.call(args_from_both(args, kwargs))
+        end
       end
+    end
+
+    private
+
+    def args_from_both(args, kwargs)
+      [].tap { |parsed_args|
+        parsed_args.push(*args) unless args.empty?
+        parsed_args << kwargs unless kwargs.empty?
+      }.flatten
+    end
+
+    def kwargs_only?(args, kwargs)
+      args.empty? && !kwargs.empty?
     end
 
   end
