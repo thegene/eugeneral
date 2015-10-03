@@ -10,7 +10,10 @@ module Eugeneral
       not_equal: ::Eugeneral::Comparisons::NotEqual,
       arg_number: ::Eugeneral::RequiredArguments::PositionalArgument,
       arg_name: ::Eugeneral::RequiredArguments::NamedArgument,
-      greater_than: ::Eugeneral::Comparisons::GreaterThan
+      greater_than: ::Eugeneral::Comparisons::GreaterThan,
+      greater_than_or_equal_to: ::Eugeneral::Comparisons::GreaterThanOrEqualTo,
+      less_than: ::Eugeneral::Comparisons::LessThan,
+      less_than_or_equal_to: ::Eugeneral::Comparisons::LessThanOrEqualTo
     }
 
     def self.default_vocabulary
