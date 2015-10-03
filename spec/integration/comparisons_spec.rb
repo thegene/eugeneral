@@ -35,7 +35,7 @@ context 'Given a YAML file with comparison comands' do
     end
 
     it 'finds foo: 1 is not greater than bar: 2' do
-      expect(general.greater_than?(foo: 1, bar: 2)).to be(true)
+      expect(general.greater_than?(foo: 1, bar: 2)).to be(false)
     end
   end
 end

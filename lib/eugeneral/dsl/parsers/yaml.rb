@@ -30,11 +30,7 @@ module Eugeneral
         def build_command(definition)
           command = parse_recursive(definition)
           ->(*args) {
-            if args.any?
-              command.resolve(args)
-            else
-              command.resolve
-            end
+            command.resolve(*args)
           }
         end
 
