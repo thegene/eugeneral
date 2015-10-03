@@ -5,7 +5,7 @@ module Eugeneral
 
       attr_reader :expressions
 
-      def initialize(expressions)
+      def initialize(*expressions)
         @expressions = expressions
       end
 
