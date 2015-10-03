@@ -15,6 +15,7 @@ module Eugeneral
 
         def parse(yaml)
           general = General.new
+          #TODO: pull the dependency of general out of this class
           YAML_LOADER.load(yaml).each do |command, args|
             general.command(command, proc_for_command(args))
           end
