@@ -5,12 +5,12 @@ module Eugeneral
 
       attr_reader :expressions
 
-      def initialize(expressions)
+      def initialize(*expressions)
         @expressions = expressions
       end
 
-      def resolve(args=nil)
-        expressions.any? { |e| value_for(e, args) }
+      def resolve(args=[])
+        expressions.any? { |e| value_for(e, args) == true }
       end
     end
   end

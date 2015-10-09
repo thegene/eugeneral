@@ -26,8 +26,46 @@ context 'Given a command list with logic commands' do
 
     context 'when using the And command' do
       context 'when all are true' do
+
         it 'finds all of them to be true' do
           expect(general.all_of_these?(true, true, true)).to be(true)
+        end
+      end
+
+      context 'when one is false' do
+
+        it 'finds the combination to be false' do
+          expect(general.all_of_these?(true, false, true)).to be(false)
+        end
+      end
+
+      context 'when all are false' do
+        
+        it 'finds the combination to be false' do
+          expect(general.all_of_these?(false, false, false)).to be(false)
+        end
+      end
+    end
+
+    context 'when using the Or command' do
+      context 'when all are true' do
+
+        it 'finds the combination to be true' do
+          expect(general.one_of_these?(first: true, second: true)).to be(true)
+        end
+      end
+
+      context 'when one is true' do
+
+        it 'finds the combination to be true' do
+          expect(general.one_of_these?(second: true, first: false)).to be(true)
+        end
+      end
+
+      context 'when both are false' do
+
+        it 'finds the combination to be false' do
+          expect(general.one_of_these?(first: false, second: false)).to be(false)
         end
       end
     end

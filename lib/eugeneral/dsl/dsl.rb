@@ -10,11 +10,13 @@ module Eugeneral
       not_equal: ::Eugeneral::Comparisons::NotEqual,
       arg_number: ::Eugeneral::RequiredArguments::PositionalArgument,
       arg_name: ::Eugeneral::RequiredArguments::NamedArgument,
+      default_arg_number: ::Eugeneral::ArgumentsWithDefault::PositionalArgument,
       greater_than: ::Eugeneral::Comparisons::GreaterThan,
       greater_than_or_equal_to: ::Eugeneral::Comparisons::GreaterThanOrEqualTo,
       less_than: ::Eugeneral::Comparisons::LessThan,
       less_than_or_equal_to: ::Eugeneral::Comparisons::LessThanOrEqualTo,
-      and: ::Eugeneral::Logic::And
+      and: ::Eugeneral::Logic::And,
+      or: ::Eugeneral::Logic::Or
     }
 
     def self.default_vocabulary
