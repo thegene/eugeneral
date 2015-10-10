@@ -24,4 +24,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'factory_girl', '~> 4.5'
   spec.add_development_dependency 'pry'
   spec.add_development_dependency 'heredoc_unindent', '~> 1.2'
+  spec.add_development_dependency 'guard', '~> 2.13'
+  spec.add_development_dependency 'guard-rspec', '~> 4.6'
 end
