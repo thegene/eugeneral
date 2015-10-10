@@ -3,7 +3,11 @@ module Eugeneral
     class Positional
 
       def resolve(args=[])
-        Array(args[target]).empty? ? not_found : args[target]
+        if args.count > target
+          args[target]
+        else
+          not_found
+        end
       end
 
     end
