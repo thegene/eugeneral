@@ -1,7 +1,7 @@
-require_relative '../../../lib/eugeneral/commands/arguments_with_default/arguments'
+require_relative '../../../lib/eugeneral/commands/arguments/arguments'
 
-describe Eugeneral::ArgumentsWithDefault::NamedArgument do
-  context 'Given a NamedArgument' do
+describe Eugeneral::Arguments::NamedWithDefault do
+  context 'Given a NamedWithDefault' do
     subject(:argument) { described_class.new(name, default) }
     let(:default) { ['one', 'two', 'five!'] }
 
@@ -26,6 +26,20 @@ describe Eugeneral::ArgumentsWithDefault::NamedArgument do
 
         it 'returns the default' do
           expect(subject.resolve('green' => 'apple')).to eq(['one', 'two', 'five!'])
+        end
+      end
+
+      context 'when the named argument is false' do
+
+        it 'returns false rather than the default' do
+          expect(subject.resolve(foo: false)).to be(false)
+        end
+      end
+
+      context 'when the named argument is nil' do
+
+        it 'returns nil rather than the default' do
+          expect(subject.resolve(foo: nil)).to be(nil)
         end
       end
     end

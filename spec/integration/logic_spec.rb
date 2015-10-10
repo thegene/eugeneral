@@ -69,5 +69,41 @@ context 'Given a command list with logic commands' do
         end
       end
     end
+
+    context 'when using the Not command' do
+      context 'with positional arguments' do
+
+        context 'when using the default argument value' do
+          it 'resolves to false' do
+            expect(general.the_opposite_of).to be(false)
+          end
+        end
+
+        context 'without a default value' do
+          context 'which is true' do
+            it 'find false to be the opposite of false' do
+              expect(general.the_opposite_of(true)).to be(false)
+            end
+          end
+
+          context 'which is false' do
+            it 'finds false to be the opposite of false' do
+              expect(general.the_opposite_of(false)).to be(true)
+            end
+          end
+        end
+      end
+
+      context 'with named arguments' do
+        context 'with a default argument value' do
+          pending
+        end
+
+        context 'without a default value' do
+          pending
+        end
+      end
+
+    end
   end
 end

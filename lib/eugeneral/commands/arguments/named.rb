@@ -1,6 +1,6 @@
 module Eugeneral
-  module RequiredArguments
-    class NamedArgument < Argument
+  module Arguments
+    class Named
 
       def resolve(args)
         case

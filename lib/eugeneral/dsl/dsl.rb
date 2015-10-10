@@ -16,7 +16,8 @@ module Eugeneral
       less_than: ::Eugeneral::Comparisons::LessThan,
       less_than_or_equal_to: ::Eugeneral::Comparisons::LessThanOrEqualTo,
       and: ::Eugeneral::Logic::And,
-      or: ::Eugeneral::Logic::Or
+      or: ::Eugeneral::Logic::Or,
+      not: ::Eugeneral::Logic::Not
     }
 
     def self.default_vocabulary

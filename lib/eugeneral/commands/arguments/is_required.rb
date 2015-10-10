@@ -1,6 +1,6 @@
 module Eugeneral
-  module RequiredArguments
-    class Argument
+  module Arguments
+    module IsRequired
       attr_reader :target
 
       def initialize(target)
