@@ -16,7 +16,7 @@ module Eugeneral
       private
 
       def present?(args, key)
-        args.has_key?(key)
+        args.respond_to?(:has_key?) && args.has_key?(key)
       end
     end
   end

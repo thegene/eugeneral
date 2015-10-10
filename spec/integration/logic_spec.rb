@@ -17,7 +17,7 @@ context 'Given a command list with logic commands' do
           default_arg_number: [0, true]
       usually_false:
         not:
-          default_arg_name: [sometimes, true]
+          default_arg_name: [sometimes, false]
     YAML
   }
 
@@ -95,13 +95,27 @@ context 'Given a command list with logic commands' do
       end
 
       context 'with named arguments' do
-        context 'with a default argument value' do
-          pending
+        context 'when using the default value' do
+          it 'finds it is usually false' do
+            expect(general.usually_false).to be(true)
+          end
         end
 
-        context 'without a default value' do
-          pending
+        context 'when supplied a value' do
+          context 'which is not the named argument' do
+
+            it 'is still usually false' do
+              expect(general.usually_false(false)).to be(true)
+            end
+          end
+
+          context 'which is the named argument' do
+            it 'is found to be true' do
+              expect(general.usually_false(sometimes: false)).to be(true)
+            end
+          end
         end
+
       end
 
     end
