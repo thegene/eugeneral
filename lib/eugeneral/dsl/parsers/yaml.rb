@@ -1,15 +1,16 @@
 require 'yaml'
 require_relative '../../general'
+require_relative 'has_default_vocabulary'
 
 module Eugeneral
   module DSL
     module Parsers
       class YAML
-        attr_accessor :vocabulary
+        include HasDefaultVocabulary
 
         YAML_LOADER = ::YAML
 
-        def initialize(args)
+        def initialize(args={})
           @vocabulary = args[:vocabulary]
         end
 

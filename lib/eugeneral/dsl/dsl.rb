@@ -22,7 +22,7 @@ module Eugeneral
     }
 
     def self.default_vocabulary
-      @default_vocabulary = Vocabulary.new(DEFAULT_MAPPING)
+      @default_vocabulary ||= Vocabulary.new(DEFAULT_MAPPING)
     end
   end
 end

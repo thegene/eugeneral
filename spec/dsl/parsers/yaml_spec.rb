@@ -8,6 +8,10 @@ describe Eugeneral::DSL::Parsers::YAML do
       parser.parse(yaml)
     end
 
+    it 'uses the default vocabulary by default' do
+      expect(described_class.new.vocabulary).to eq(Eugeneral::DSL.default_vocabulary)
+    end
+
     subject(:parser) { described_class.new(vocabulary: vocabulary) }
 
     context 'with a vocabulary' do
