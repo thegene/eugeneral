@@ -27,6 +27,14 @@ context 'Given a command list with comparison commands' do
         less_than_or_equal_to:
           - arg_name: :foo
           - arg_name: :bar
+      between_five_and_ten?:
+        and:
+          - less_than:
+            - arg_number: 0
+            - 10
+          - greater_than:
+            - arg_number: 0
+            - 5
     YAML
   }
 
@@ -105,6 +113,29 @@ context 'Given a command list with comparison commands' do
 
       it 'finds foo: 1 is equal to bar: 1' do
         expect(general.less_than_or_equal_to?(foo: 1, bar: 1)).to be(true)
+      end
+    end
+
+    context 'when using between five and ten command' do
+
+      it 'finds 7 to be true' do
+        expect(general.between_five_and_ten? 7).to be(true)
+      end
+
+      it 'finds 3 to be false' do
+        expect(general.between_five_and_ten? 3).to be(false)
+      end
+
+      it 'finds 5 to be false' do
+        expect(general.between_five_and_ten? 5).to be(false)
+      end
+
+      it 'finds 10 to be false' do
+        expect(general.between_five_and_ten? 10).to be(false)
+      end
+
+      it 'finds 11 to be false' do
+        expect(general.between_five_and_ten? 11).to be(false)
       end
     end
   end
