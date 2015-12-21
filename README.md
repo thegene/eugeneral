@@ -4,7 +4,7 @@ Configuration driven behavior and logic.
 
 ## Description
 
-Creates Generals which command your application. Creates objects whose behavior is driven by configuration.
+Creates Generals which command your application. Generals are objects whose methods are made up of logic specified in configurations.
 
 
 ## Installation
@@ -122,7 +122,7 @@ When a General's command is called, it's called like any other method. To pass a
 All a command needs (aside from a probably an initialize method) is a ```resolve``` method which should accept a single argument (```args``` by convention) whose content will be whatever is nested underneath it in configuration.
 
 For convenience, you may want to include in your command the ```Eugeneral::Value``` module which gives your command the ```value_for``` method. This method knows how to resolve nested commands, returning the resolved sub-command, or the value depending on whether or not it is a command. For example, from the GreaterThan command:
-```
+```ruby
 def resolve(args=[])
   value_for(subject, args) > value_for(object, args)
 end
@@ -136,9 +136,11 @@ When parsing configuration, a parser needs to know what are commands and what ar
 new_vocabulary = Eugeneral::DSL::Vocabulary.new({
   my_special_command: MyModule::MySpecialCommand
 })
+
+# at instantiation
 Eugeneral::DSL::Parsers::YAML.new(vocabulary: new_vocabulary)
 
-# or
+# or later
 
 parser.vocabulary = new_vocabulary
 ```
@@ -150,7 +152,7 @@ parser.vocabulary.merge!({ my_special_command: MyModule::MySpecialCommand })
 
 # or
 
-parser.vocabulary[my_special_command] = MyModule::MySpecialCommand
+parser.vocabulary[:my_special_command] = MyModule::MySpecialCommand
 ```
 
 Then you can get to parsing!
