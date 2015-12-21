@@ -98,25 +98,25 @@ the resolved value from ```arg_number``` is passed as the first argument of ```l
 Out of the box, the following commands are available:
 
 #### Comparison
-* equal: takes an array of with two entries, returning true if they are equal to each other
-* not_equal: the opposite of equal
-* greater_than: compares an array of two arguments, returning true if the first is greater than the second
-* greater_than_or_equal_to: Same as greater_than but also true if they're equal
-* less_than: like greater_than, but true if the first is less than the second
-* less_than_or_equal_to: like less_than, but also true if equal
+* ```equal```: takes an array of with two entries, returning true if they are equal to each other
+* ```not_equal```: the opposite of equal
+* ```greater_than```: compares an array of two arguments, returning true if the first is greater than the second
+* ```greater_than_or_equal_to```: Same as greater_than but also true if they're equal
+* ```less_than```: like greater_than, but true if the first is less than the second
+* ```less_than_or_equal_to```: like less_than, but also true if equal
 
 #### Logic
-* and: takes an array of arguments, returning true if all arguments resolve to true
-* or: takes an array of arguments, returning true if any of them resolve to true
-* not: takes a single argument, returning true if the argument resolves to false, and vice-versa
-* tri_node: A very naive implementation of a rete tri node. If a command list contains a tri of tri nodes, it will resolve left to right, top to bottom, resolving to the first non-nil, non-false node.
+* ```and```: takes an array of arguments, returning true if all arguments resolve to true
+* ```or```: takes an array of arguments, returning true if any of them resolve to true
+* ```not```: takes a single argument, returning true if the argument resolves to false, and vice-versa
+* ```tri_node```: A very naive implementation of a rete tri node. If a command list contains a tri of tri nodes, it will resolve left to right, top to bottom, resolving to the first non-nil, non-false node.
 
 #### Arguments
 When a General's command is called, it's called like any other method. To pass arguments from when the command is called, use the following commands in your configuration:
-* arg_number: resolves positional arguments. In configuration, expects an argument specifying the argument position (starting at 0). if command ```fruit``` is called: ```fruit(:apple, :pear)``` ```arg_number: 0``` would be ```:apple```. Raises an error if it doesn't find anything at the specified location.
-* arg_name: resolves named arguments (passed as a hash). ```foo(fruit: :apple)``` would resolve with ```:apple``` given ```arg_name: :fruit```.
-* default_arg_number: Just like ```arg_number```, but takes a second argument which is the default value if the arguments passed do not contain an argument at the specified position.
-* default_arg_name: just like ```arg_name``` but accepts a second argument specifying a default to use if the named argument is not specified.
+* ```arg_number```: resolves positional arguments. In configuration, expects an argument specifying the argument position (starting at 0). if command ```fruit``` is called: ```fruit(:apple, :pear)``` ```arg_number: 0``` would be ```:apple```. Raises an error if it doesn't find anything at the specified location.
+* ```arg_name```: resolves named arguments (passed as a hash). ```foo(fruit: :apple)``` would resolve with ```:apple``` given ```arg_name: :fruit```.
+* ```default_arg_number```: Just like ```arg_number```, but takes a second argument which is the default value if the arguments passed do not contain an argument at the specified position.
+* ```default_arg_name```: just like ```arg_name``` but accepts a second argument specifying a default to use if the named argument is not specified.
 
 ### Creating your own Commands
 All a command needs (aside from a probably an initialize method) is a ```resolve``` method which should accept a single argument (```args``` by convention) whose content will be whatever is nested underneath it in configuration.
