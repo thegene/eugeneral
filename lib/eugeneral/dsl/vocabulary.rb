@@ -15,6 +15,14 @@ module Eugeneral
         mapping.has_key?(symbolize(command))
       end
 
+      def []=(key, val)
+        merge!(key => val)
+      end
+
+      def merge!(definitions)
+        @mapping.merge!(normalize_mapping(definitions))
+      end
+
       private
 
       def symbolize(string)

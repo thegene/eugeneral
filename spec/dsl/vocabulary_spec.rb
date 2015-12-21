@@ -130,6 +130,46 @@ describe Eugeneral::DSL::Vocabulary do
         expect(vocabulary.define(:plum)).to be(plum_instance)
       end
 
+      context 'when adding to a single definition' do
+        before do
+          vocabulary[:other_plum] = plum_class
+        end
+
+        it 'will now find a definition for other_plum' do
+          expect(vocabulary.defines?(:other_plum)).to be(true)
+        end
+
+        it 'will define other_plum as bar' do
+          expect(vocabulary.define('other_plum')).to eq(plum_instance)
+        end
+
+        context 'which is already defined' do
+          before do
+            vocabulary[:pear] = apple_class
+          end
+
+          it 'will define using the new definition' do
+            expect(vocabulary.define(:pear)).to eq(apple_instance)
+          end
+        end
+      end
+
+      context 'when merging multiple changes to the vocabulary' do
+        before do
+          vocabulary.merge!({
+            new_thing: peach_class,
+            apple: plum_class  
+          })
+        end
+
+        it 'adds the new_thing' do
+          expect(vocabulary.define('new_thing')).to eq(peach_instance)
+        end
+
+        it 'changes the old thing' do
+          expect(vocabulary.define('apple')).to eq(plum_instance)
+        end
+      end
     end
   end
 end
