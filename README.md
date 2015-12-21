@@ -109,6 +109,7 @@ Out of the box, the following commands are available:
 * and: takes an array of arguments, returning true if all arguments resolve to true
 * or: takes an array of arguments, returning true if any of them resolve to true
 * not: takes a single argument, returning true if the argument resolves to false, and vice-versa
+* tri_node: A very naive implementation of a rete tri node. If a command list contains a tri of tri nodes, it will resolve left to right, top to bottom, resolving to the first non-nil, non-false node.
 
 #### Arguments
 When a General's command is called, it's called like any other method. To pass arguments from when the command is called, use the following commands in your configuration:
@@ -117,6 +118,42 @@ When a General's command is called, it's called like any other method. To pass a
 * default_arg_number: Just like ```arg_number```, but takes a second argument which is the default value if the arguments passed do not contain an argument at the specified position.
 * default_arg_name: just like ```arg_name``` but accepts a second argument specifying a default to use if the named argument is not specified.
 
+### Creating your own Commands
+All a command needs (aside from a probably an initialize method) is a ```resolve``` method which should accept a single argument (```args``` by convention) whose content will be whatever is nested underneath it in configuration.
+
+For convenience, you may want to include in your command the ```Eugeneral::Value``` module which gives your command the ```value_for``` method. This method knows how to resolve nested commands, returning the resolved sub-command, or the value depending on whether or not it is a command. For example, from the GreaterThan command:
+```
+def resolve(args=[])
+  value_for(subject, args) > value_for(object, args)
+end
+```
+where ```subject``` is the first nested command, and ```object``` is the second. By using ```value_for```, the configuration can either have nested commands which are resolved, or static values, and the comparison will still resolve.
+
+#### Altering the vocabulary
+When parsing configuration, a parser needs to know what are commands and what are just hashes. To accomplish this, you may either specify your vocabulary wholesale for your parser:
+
+```ruby
+new_vocabulary = Eugeneral::DSL::Vocabulary.new({
+  my_special_command: MyModule::MySpecialCommand
+})
+Eugeneral::DSL::Parsers::YAML.new(vocabulary: new_vocabulary)
+
+# or
+
+parser.vocabulary = new_vocabulary
+```
+
+or you can modify it in a couple of ways:
+
+```ruby
+parser.vocabulary.merge!({ my_special_command: MyModule::MySpecialCommand })
+
+# or
+
+parser.vocabulary[my_special_command] = MyModule::MySpecialCommand
+```
+
+Then you can get to parsing!
 
 ## Contributing
 
