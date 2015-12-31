@@ -53,7 +53,7 @@ require 'eugeneral'
 command_list = File.read('command_list.yml')
 
 # parse it into a general
-general = Eugeneral::DSL::Parsers::YAML.new.parse(command_list)
+general = Eugeneral.general(command_list)
 
 # now let's use it
 general.greater_than_five? 7 # true
